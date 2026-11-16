@@ -32,12 +32,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          # v0.9.0-beta.1 becomes "LiquidMouse 0.9.0 beta 1"; a tag with a suffix is marked as a prerelease.
+          # v0.9.0-beta.1 becomes "LiquidMouse 0.9.0 beta 1". Betas are ordinary releases, so the repository page
+          # shows the latest one.
           title="LiquidMouse $(printf '%s' "${RELEASE_TAG#v}" | sed 's/-\([a-z]*\)\.\{0,1\}/ \1 /; s/ *$//')"
-          prerelease=
-          case "$RELEASE_TAG" in *-*) prerelease=--prerelease ;; esac
           gh release create "$RELEASE_TAG" \
-            --target "$GITHUB_SHA" --draft $prerelease \
+            --target "$GITHUB_SHA" --draft \
             --title "$title" \
             --notes-file "docs/releases/$RELEASE_TAG.md" \
             "build/releases/$RELEASE_TAG/LiquidMouse-$RELEASE_TAG.zip" \
