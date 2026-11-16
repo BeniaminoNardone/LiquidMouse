@@ -1,0 +1,44 @@
+name: Prepare release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag, matching the version in Support/Info.plist (for example v0.9.0-beta.1)"
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prepare-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: macos-26
+    timeout-minutes: 30
+    env:
+      RELEASE_TAG: ${{ inputs.tag }}
+    steps:
+      - uses: actions/checkout@v5
+      - name: Test
+        run: Scripts/test.sh
+      - name: Build the app for Apple silicon and Intel
+        run: Scripts/build-app.sh
+      - name: Package and checksum
+        run: Scripts/package-release.sh "$RELEASE_TAG"
+      - name: Create draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # v0.9.0-beta.1 becomes "LiquidMouse 0.9.0 beta 1"; a tag with a suffix is marked as a prerelease.
+          title="LiquidMouse $(printf '%s' "${RELEASE_TAG#v}" | sed 's/-\([a-z]*\)\.\{0,1\}/ \1 /; s/ *$//')"
+          prerelease=
+          case "$RELEASE_TAG" in *-*) prerelease=--prerelease ;; esac
+          gh release create "$RELEASE_TAG" \
+            --target "$GITHUB_SHA" --draft $prerelease \
+            --title "$title" \
+            --notes-file "docs/releases/$RELEASE_TAG.md" \
+            "build/releases/$RELEASE_TAG/LiquidMouse-$RELEASE_TAG.zip" \
+            "build/releases/$RELEASE_TAG/SHA256SUMS"

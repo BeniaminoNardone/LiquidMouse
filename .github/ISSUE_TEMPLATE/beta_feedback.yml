@@ -1,0 +1,15 @@
+name: Beta feedback / Come ti trovi?
+description: Tell us how LiquidMouse fits your everyday use.
+body:
+  - type: textarea
+    id: use
+    attributes:
+      label: How long have you used it, and do you keep it enabled?
+    validations:
+      required: true
+  - type: textarea
+    id: friction
+    attributes:
+      label: What makes you turn it off? What would you keep or change?
+    validations:
+      required: true

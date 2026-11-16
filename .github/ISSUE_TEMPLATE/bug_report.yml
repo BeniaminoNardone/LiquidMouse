@@ -1,0 +1,35 @@
+name: Bug report / Segnala un problema
+description: Something the cursor does wrong, an app it does not work with, or a performance problem.
+title: "[Bug]: "
+body:
+  - type: input
+    id: environment
+    attributes:
+      label: Mac, macOS and LiquidMouse versions
+      description: The LiquidMouse version and build are shown at the bottom of its settings.
+      placeholder: "MacBook Air M2, macOS 27.0.1, LiquidMouse 0.9.0 (3)"
+    validations:
+      required: true
+  - type: input
+    id: application
+    attributes:
+      label: App where it happens, and its version
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps, what you expected and what happened
+    validations:
+      required: true
+  - type: textarea
+    id: configuration
+    attributes:
+      label: Settings and screens
+      description: Shape, trail length, number of screens and their refresh rates, and whether Accessibility is on.
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Logs or screenshots
+      description: |
+        To capture the log, run this in Terminal while the problem happens and paste the relevant lines:
+        `/usr/bin/log stream --level info --predicate 'subsystem == "io.github.beniaminonardone.LiquidMouse"'`
+        Remove anything personal first.

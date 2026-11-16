@@ -1,0 +1,57 @@
+/* Italian. Keys are the English texts in the code. */
+
+"Liquid cursor" = "Cursore liquido";
+"This version of macOS no longer offers the calls LiquidMouse needs." = "Questa versione di macOS non offre più le funzioni che servono a LiquidMouse.";
+
+"Appearance" = "Aspetto";
+"Shape" = "Forma";
+"Dot" = "Punto";
+"Arrow" = "Freccia";
+"Color" = "Colore";
+"Automatic" = "Automatico";
+"Dark" = "Scuro";
+"Light" = "Chiaro";
+"Size" = "Dimensione";
+"Automatic is light when macOS is dark, and dark when it is light. The size also follows the pointer size set in Accessibility." = "Automatico è chiaro quando macOS è scuro, e scuro quando è chiaro. La dimensione segue anche quella del puntatore scelta in Accessibilità.";
+"The size also follows the pointer size set in Accessibility." = "La dimensione segue anche quella del puntatore scelta in Accessibilità.";
+
+"Motion" = "Movimento";
+"Trail length" = "Lunghezza scia";
+"none" = "nessuna";
+"Trail speed" = "Velocità scia";
+"slow" = "lenta";
+"soft" = "morbida";
+"medium" = "media";
+"quick" = "rapida";
+"snappy" = "scattante";
+"Bounce" = "Rimbalzo";
+"Splash on click" = "Schizzi al clic";
+"Shrink when moving slowly" = "Si rimpicciolisce quando muovi piano";
+"Reduce Motion is on in Accessibility settings: no bounce and no splash." = "Riduci movimento è attivo nelle impostazioni Accessibilità: niente rimbalzo e niente schizzi.";
+
+"Hiding" = "Quando sparisce";
+"While typing" = "Mentre scrivi";
+"When still" = "Quando è fermo";
+"Never" = "Mai";
+"In full screen" = "A schermo intero";
+"Always" = "Sempre";
+"After" = "Dopo";
+
+"Buttons" = "Pulsanti";
+"Use original cursor" = "Usa il cursore originale";
+"Add app…" = "Aggiungi app…";
+"Remove exclusion" = "Rimuovi esclusione";
+"Games are detected automatically. Add any other apps that should keep their own cursor." = "I giochi vengono riconosciuti automaticamente. Aggiungi altre app in cui mantenere il cursore originale.";
+"Buttons and links are recognized even where the app keeps the arrow." = "Riconosce pulsanti e link anche dove l'app non cambia cursore.";
+"To recognize buttons, LiquidMouse needs the Accessibility permission." = "Per riconoscere i pulsanti serve il permesso Accessibilità per LiquidMouse.";
+"Open System Settings" = "Apri le Impostazioni";
+
+"Open at login" = "Apri al login";
+"Could not change open at login: %@" = "Impossibile modificare l'apertura al login: %@";
+"To open it at login, move LiquidMouse to Applications and open it again." = "Per aprirlo al login, sposta LiquidMouse in Applicazioni e riaprilo.";
+"macOS asks you to approve it in System Settings, under Login Items." = "macOS chiede di approvarlo in Impostazioni di Sistema, sotto Elementi login.";
+"Restore default settings" = "Ripristina le impostazioni iniziali";
+"Quit LiquidMouse" = "Esci da LiquidMouse";
+
+"LiquidMouse, on" = "LiquidMouse, acceso";
+"LiquidMouse, off" = "LiquidMouse, spento";
