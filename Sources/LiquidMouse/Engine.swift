@@ -339,6 +339,7 @@ final class Engine: NSObject {
             if !isAway {
                 readSystemSettings()
             }
+            rejoinEverySpace()
         }
         if foregroundPolicyChanged() {
             applyRunState()
@@ -416,7 +417,16 @@ final class Engine: NSObject {
             applyRunState()
             report(isPausedForApplication ? "foreground app uses its original cursor" : "liquid cursor resumed")
         }
+        rejoinEverySpace()
         wake()
+    }
+
+    /// Catches an overlay macOS has tied to one Space, which would leave no cursor at all on the others.
+    private func rejoinEverySpace() {
+        guard isRunning else { return }
+        for display in displays where display.overlay.rejoinEverySpace() {
+            report("cursor window was missing from this Space: put back on every Space")
+        }
     }
 
     private func frontApplicationIsExcluded() -> Bool {

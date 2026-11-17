@@ -32,6 +32,10 @@ final class OverlayWindow: NSWindow {
     static let shadowRadius: CGFloat = 2.5
     /// The cursor is not quite opaque.
     static let bodyOpacity: Float = 0.94
+    /// On every Space, still while they slide past, and out of the window cycle.
+    private static let everySpace: NSWindow.CollectionBehavior = [
+        .canJoinAllSpaces, .stationary, .ignoresCycle, .fullScreenAuxiliary,
+    ]
 
     /// How far the body's layer reaches around the pointer: the body's own reach, plus room for its rim and shadow.
     static func extent(reach: CGFloat) -> CGFloat {
@@ -68,7 +72,7 @@ final class OverlayWindow: NSWindow {
         // The system cursor's own level, above everything: system alerts sit at the shielding level just below
         // and covered the cursor there, while the real one was hidden.
         level = NSWindow.Level(rawValue: Int(CGWindowLevelForKey(.cursorWindow)))
-        collectionBehavior = [.canJoinAllSpaces, .stationary, .ignoresCycle, .fullScreenAuxiliary]
+        collectionBehavior = Self.everySpace
 
         let content = NSView(frame: NSRect(origin: .zero, size: screen.frame.size))
         content.wantsLayer = true
@@ -109,6 +113,19 @@ final class OverlayWindow: NSWindow {
         if sharingType != sharing {
             sharingType = sharing
         }
+    }
+
+    /// Puts the window back on every Space when it is shown but missing from the current one, and returns whether
+    /// it had to. macOS sometimes ties a window that joins all Spaces to a single one (seen after the screen was
+    /// locked, with two desktops): the cursor was then invisible on the others. Setting the same behavior again
+    /// does nothing; dropping the flag, letting WindowServer hear of it, and setting it again puts the window back.
+    @discardableResult
+    func rejoinEverySpace() -> Bool {
+        guard isVisible, !isOnActiveSpace else { return false }
+        collectionBehavior = Self.everySpace.subtracting(.canJoinAllSpaces)
+        CATransaction.flush()
+        collectionBehavior = Self.everySpace
+        return true
     }
 
     /// Covers `screen`. When the screens change the windows are moved rather than made anew: making and dropping
